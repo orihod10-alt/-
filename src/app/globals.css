@@ -218,6 +218,22 @@ h1, h2, h3, h4, h5, h6 {
 .process-slide {
   scroll-snap-align: start;
   flex-shrink: 0;
+  width: 100vw;
+}
+
+/* ─────────────────────────────────────
+   CTA BUTTONS — mobile full-width stack
+───────────────────────────────────────*/
+@media (max-width: 600px) {
+  .cta-buttons-row {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+  .cta-buttons-row a {
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+  }
 }
 
 /* ─────────────────────────────────────

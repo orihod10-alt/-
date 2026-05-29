@@ -231,7 +231,7 @@ export default function Testimonials() {
               <blockquote
                 style={{
                   fontFamily:    "var(--font-frank-ruhl, Georgia, serif)",
-                  fontSize:      "clamp(1.5rem, 3.2vw, 2.6rem)",
+                  fontSize:      "clamp(1.1rem, 4vw, 2.25rem)",
                   fontWeight:    400,
                   fontStyle:     "italic",
                   color:         "var(--cream)",

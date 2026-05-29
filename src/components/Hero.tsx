@@ -38,6 +38,7 @@ export default function Hero() {
   const subtitleRef = useRef<HTMLDivElement>(null);
   const ctaRef      = useRef<HTMLDivElement>(null);
   const eyebrowRef  = useRef<HTMLDivElement>(null);
+  const videoRef    = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -84,6 +85,21 @@ export default function Hero() {
     return () => ctx.revert();
   }, []);
 
+  /* Force-play on mobile — browser autoplay policy requires muted + programmatic play */
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.muted = true;
+    video.setAttribute('webkit-playsinline', 'true');
+    video.setAttribute('x5-playsinline', 'true');
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        document.addEventListener('click', () => video.play(), { once: true });
+      });
+    }
+  }, []);
+
   return (
     <section
       ref={sectionRef}
@@ -99,6 +115,7 @@ export default function Hero() {
     >
       {/* ── Layer 1: Background Video ── */}
       <video
+        ref={videoRef}
         src="/videos/hero.mp4"
         autoPlay
         muted
@@ -188,7 +205,7 @@ export default function Hero() {
             style={{
               fontFamily: "var(--font-frank-ruhl, Georgia, serif)",
               fontWeight: 400,
-              fontSize: "clamp(4rem, 10vw, 10rem)",
+              fontSize: "clamp(2.8rem, 10vw, 10rem)",
               color: "var(--cream)",
               lineHeight: 0.92,
               letterSpacing: "-0.02em",
@@ -200,7 +217,7 @@ export default function Hero() {
               fontFamily: "var(--font-frank-ruhl, Georgia, serif)",
               fontStyle:     "italic",
               fontWeight:    400,
-              fontSize:      "clamp(4rem, 10vw, 10rem)",
+              fontSize:      "clamp(2.8rem, 10vw, 10rem)",
               color:         "var(--accent)",
               lineHeight:    1.15,       /* was 0.92 — Hebrew descenders need room */
               letterSpacing: "-0.02em",
@@ -232,7 +249,7 @@ export default function Hero() {
           <p
             style={{
               fontFamily: "var(--font-heebo, Arial, sans-serif)",
-              fontSize: "clamp(15px, 1.8vw, 17px)",
+              fontSize: "clamp(14px, 3.5vw, 17px)",
               lineHeight: 1.7,
               color: "var(--cream-muted)",
               paddingBottom: "0.2em",

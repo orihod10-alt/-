@@ -177,7 +177,7 @@ export default function Manifesto() {
           zIndex:     10,
           maxWidth:   "min(1100px, 90vw)",
           margin:     "0 auto",
-          padding:    "clamp(80px, 12vh, 160px) clamp(24px, 5vw, 64px)",
+          padding:    "clamp(80px, 12vh, 160px) clamp(16px, 5vw, 64px)",
           textAlign:  "center",
           direction:  "rtl",
         }}
@@ -215,7 +215,7 @@ export default function Manifesto() {
         <div
           style={{
             fontFamily:    "var(--font-frank-ruhl, Georgia, serif)",
-            fontSize:      "clamp(2rem, 5vw, 4.5rem)",
+            fontSize:      "clamp(1.6rem, 5.5vw, 4.5rem)",
             fontWeight:    400,
             lineHeight:    1.55,
             letterSpacing: "-0.01em",

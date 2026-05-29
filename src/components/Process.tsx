@@ -60,7 +60,7 @@ export default function Process() {
     setActiveStep(Math.min(3, Math.floor(latest * 4)));
   });
 
-  /* ── Sync video playback ── */
+  /* ── Sync desktop video playback ── */
   useEffect(() => {
     videoRefs.current.forEach((vid, i) => {
       if (!vid) return;
@@ -68,6 +68,32 @@ export default function Process() {
       else vid.pause();
     });
   }, [activeStep]);
+
+  /* ── Mobile: set webkit attrs + IntersectionObserver for carousel videos ── */
+  useEffect(() => {
+    const videos = document.querySelectorAll<HTMLVideoElement>('.process-slide video');
+    videos.forEach((video) => {
+      video.muted = true;
+      video.setAttribute('webkit-playsinline', 'true');
+      video.setAttribute('x5-playsinline', 'true');
+    });
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const video = entry.target as HTMLVideoElement;
+          if (entry.isIntersecting) {
+            video.muted = true;
+            video.play().catch(() => {});
+          } else {
+            video.pause();
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+    videos.forEach((v) => observer.observe(v));
+    return () => observer.disconnect();
+  }, []);
 
   const step = STEPS[activeStep];
 
@@ -534,10 +560,11 @@ export default function Process() {
               {/* Video — top 60% */}
               <div
                 style={{
-                  position:  "relative",
-                  height:    "60dvh",
-                  overflow:  "hidden",
-                  flexShrink: 0,
+                  position:        "relative",
+                  height:          "60dvh",
+                  overflow:        "hidden",
+                  flexShrink:      0,
+                  backgroundColor: "oklch(16% 0.012 50)",
                 }}
               >
                 <video
@@ -634,7 +661,7 @@ export default function Process() {
                 <h3
                   style={{
                     fontFamily:    "var(--font-frank-ruhl, Georgia, serif)",
-                    fontSize:      "clamp(1.8rem, 7vw, 2.4rem)",
+                    fontSize:      "clamp(1.6rem, 6vw, 2.4rem)",
                     fontWeight:    400,
                     color:         "var(--cream)",
                     lineHeight:    1.05,

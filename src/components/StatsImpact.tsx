@@ -114,7 +114,7 @@ function StatCard({ stat, index }: { stat: Stat; index: number }) {
       <span
         style={{
           fontFamily:    "var(--font-frank-ruhl, Georgia, serif)",
-          fontSize:      "clamp(3rem, 5.5vw, 5.5rem)",
+          fontSize:      "clamp(2.5rem, 8vw, 9rem)",
           fontWeight:    400,
           color:         "var(--cream)",
           lineHeight:    1,

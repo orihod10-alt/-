@@ -35,6 +35,16 @@ export default function WhyUs() {
   const headerRef  = useRef<HTMLDivElement>(null);
   const inView     = useInView(sectionRef, { once: false, margin: "-100px" });
 
+  /* Force-play on mobile */
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.muted = true;
+    video.setAttribute('webkit-playsinline', 'true');
+    video.setAttribute('x5-playsinline', 'true');
+    video.play().catch(() => {});
+  }, []);
+
   /* Parallax on the background video */
   useEffect(() => {
     const video = videoRef.current;

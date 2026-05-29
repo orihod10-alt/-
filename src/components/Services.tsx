@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 
@@ -179,6 +179,19 @@ export default function Services() {
 function ServiceCard({ service, index }: { service: Service; index: number }) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
+  /* Force-play on mobile — ensures autoplay works on iOS/Android */
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.muted = true;
+    video.setAttribute('webkit-playsinline', 'true');
+    video.setAttribute('x5-playsinline', 'true');
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {});
+    }
+  }, []);
+
   const onEnter = () => {
     if (videoRef.current) videoRef.current.style.opacity = "0.85";
   };
@@ -281,7 +294,7 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
         <h3
           style={{
             fontFamily:    "var(--font-frank-ruhl, Georgia, serif)",
-            fontSize:      "clamp(22px, 2.5vw, 28px)",
+            fontSize:      "clamp(18px, 4.5vw, 28px)",
             fontWeight:    400,
             color:         "var(--cream)",
             lineHeight:    1.2,
@@ -295,7 +308,7 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
         <p
           style={{
             fontFamily: "var(--font-heebo, Arial, sans-serif)",
-            fontSize:   14,
+            fontSize:   13,
             lineHeight: 1.6,
             color:      "var(--cream-muted)",
             marginTop:  10,

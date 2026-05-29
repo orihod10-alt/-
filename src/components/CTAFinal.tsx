@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 import { Phone } from "lucide-react";
 
@@ -21,7 +21,17 @@ function WhatsAppIcon({ size = 18 }: { size?: number }) {
 
 export default function CTAFinal() {
   const sectionRef = useRef<HTMLElement>(null);
+  const videoRef   = useRef<HTMLVideoElement>(null);
   const inView     = useInView(sectionRef, { once: false, margin: "-80px" });
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.muted = true;
+    video.setAttribute('webkit-playsinline', 'true');
+    video.setAttribute('x5-playsinline', 'true');
+    video.play().catch(() => {});
+  }, []);
 
   return (
     <section
@@ -39,6 +49,7 @@ export default function CTAFinal() {
     >
       {/* Background video — low opacity */}
       <video
+        ref={videoRef}
         autoPlay
         muted
         loop
@@ -110,7 +121,7 @@ export default function CTAFinal() {
           transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
           style={{
             fontFamily:    "var(--font-frank-ruhl, Georgia, serif)",
-            fontSize:      "clamp(2.6rem, 7vw, 6.5rem)",
+            fontSize:      "clamp(2rem, 8vw, 6.5rem)",
             fontWeight:    400,
             color:         "var(--cream)",
             lineHeight:    1.0,
@@ -150,6 +161,7 @@ export default function CTAFinal() {
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.34 }}
+          className="cta-buttons-row"
           style={{
             display:        "flex",
             gap:            16,
