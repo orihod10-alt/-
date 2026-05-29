@@ -1,0 +1,269 @@
+@import "tailwindcss";
+
+/* ─────────────────────────────────────
+   DESIGN TOKENS — Custom Properties
+   (used via var() throughout; no Tailwind
+   naming collision since we keep these as
+   CSS custom props rather than @theme)
+───────────────────────────────────────*/
+:root {
+  --charcoal:        oklch(16% 0.012 50);
+  --charcoal-deep:   oklch(11% 0.010 50);
+  --cream:           oklch(95% 0.015 75);
+  --cream-muted:     oklch(70% 0.012 75);
+  --accent:          oklch(72% 0.13 65);
+  --accent-deep:     oklch(55% 0.12 55);
+  --border-line:     oklch(28% 0.015 50);
+
+  --ease-apple:     cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-standard:  cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-out-expo:  cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+/* ─────────────────────────────────────
+   BASE RESET
+───────────────────────────────────────*/
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: clip; /* clip avoids creating a scroll container (unlike hidden), preserving position:sticky */
+  direction: rtl;
+}
+
+body {
+  background: var(--charcoal);
+  color: var(--cream);
+  font-family: var(--font-heebo, "Arial Hebrew", sans-serif);
+  overflow-x: hidden;
+  max-width: 100vw;
+  cursor: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+}
+
+@media (pointer: coarse) {
+  body { cursor: auto; }
+}
+
+/* ─────────────────────────────────────
+   TYPOGRAPHY — Hebrew line-height boost
+───────────────────────────────────────*/
+p, li {
+  line-height: 1.7;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-frank-ruhl, Georgia, serif);
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+/* ─────────────────────────────────────
+   KEYFRAMES
+───────────────────────────────────────*/
+@keyframes fade-rise {
+  from { opacity: 0; transform: translateY(28px); filter: blur(4px); }
+  to   { opacity: 1; transform: translateY(0);    filter: blur(0);   }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.3; }
+  50%       { opacity: 1;   }
+}
+
+@keyframes marquee-left {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-33.333%); }
+}
+
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes loader-fill {
+  from { width: 0%; }
+  to   { width: 100%; }
+}
+
+@keyframes process-line-sweep {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
+
+/* ─────────────────────────────────────
+   LIQUID GLASS UTILITY
+───────────────────────────────────────*/
+.liquid-glass {
+  background: rgba(255, 255, 255, 0.025);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.liquid-glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.28),
+    rgba(255, 255, 255, 0.04),
+    rgba(255, 255, 255, 0.14)
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box,
+                linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.liquid-glass-strong {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(28px) saturate(160%);
+  -webkit-backdrop-filter: blur(28px) saturate(160%);
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 24px 64px rgba(0, 0, 0, 0.6),
+    0 1px 0 rgba(255, 255, 255, 0.06) inset;
+}
+
+.liquid-glass-strong::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.24),
+    rgba(255, 255, 255, 0.03),
+    rgba(255, 255, 255, 0.16)
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box,
+                linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ─────────────────────────────────────
+   GRAIN OVERLAY
+   Always on a fixed / pointer-none element
+───────────────────────────────────────*/
+.grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.055;
+  mix-blend-mode: overlay;
+  z-index: 1;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@media (pointer: coarse) {
+  .grain { opacity: 0.03; }
+}
+
+/* ─────────────────────────────────────
+   AMBER UNDERLINE HOVER
+───────────────────────────────────────*/
+.hover-amber-line {
+  position: relative;
+}
+
+.hover-amber-line::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  right: 0;
+  left: auto;
+  width: 0;
+  height: 1px;
+  background: var(--accent);
+  transition: width 0.5s var(--ease-apple);
+  transform-origin: right;
+}
+
+.hover-amber-line:hover::after {
+  width: 100%;
+  transform-origin: right;
+}
+
+/* ─────────────────────────────────────
+   CHAR SPLIT ANIMATION (GSAP helper classes)
+───────────────────────────────────────*/
+.char-wrap {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+
+.char {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+/* ─────────────────────────────────────
+   SCROLL SNAP — Process mobile carousel
+───────────────────────────────────────*/
+.process-carousel {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scroll-behavior: smooth;
+}
+
+.process-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.process-slide {
+  scroll-snap-align: start;
+  flex-shrink: 0;
+}
+
+/* ─────────────────────────────────────
+   HIDE SCROLLBAR
+───────────────────────────────────────*/
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ─────────────────────────────────────
+   FOCUS RING
+───────────────────────────────────────*/
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ─────────────────────────────────────
+   REDUCED MOTION
+───────────────────────────────────────*/
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
