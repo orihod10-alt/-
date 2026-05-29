@@ -89,7 +89,7 @@ function CountUp({
 
 function StatCard({ stat, index }: { stat: Stat; index: number }) {
   const ref     = useRef<HTMLDivElement>(null);
-  const inView  = useInView(ref, { once: true, margin: "-80px" });
+  const inView  = useInView(ref, { once: false, margin: "-80px" });
 
   return (
     <motion.div
@@ -169,7 +169,7 @@ function StatCard({ stat, index }: { stat: Stat; index: number }) {
 
 export default function StatsImpact() {
   const sectionRef = useRef<HTMLElement>(null);
-  const inView     = useInView(sectionRef, { once: true, margin: "-60px" });
+  const inView     = useInView(sectionRef, { once: false, margin: "-60px" });
 
   return (
     <section

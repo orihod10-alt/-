@@ -63,7 +63,7 @@ export default function Testimonials() {
   const [direction, setDirection] = useState(1); // 1=forward, -1=backward
   const timerRef   = useRef<ReturnType<typeof setInterval> | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
-  const inView     = useInView(sectionRef, { once: true, margin: "-80px" });
+  const inView     = useInView(sectionRef, { once: false, margin: "-80px" });
 
   const advance = useCallback((delta: number) => {
     setDirection(delta);

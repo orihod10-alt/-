@@ -99,7 +99,7 @@ export default function Hero() {
     >
       {/* ── Layer 1: Background Video ── */}
       <video
-        src="/videos/process-4.mp4"
+        src="/videos/hero.mp4"
         autoPlay
         muted
         loop
@@ -126,7 +126,7 @@ export default function Hero() {
           inset: 0,
           zIndex: 2,
           background:
-            "linear-gradient(180deg, rgba(20,17,15,0.15) 0%, rgba(20,17,15,0.45) 55%, rgba(20,17,15,0.96) 100%)",
+            "linear-gradient(to top, rgba(15,12,8,0.95) 0%, rgba(15,12,8,0.6) 40%, rgba(15,12,8,0.3) 70%, rgba(15,12,8,0.15) 100%)",
         }}
       />
 

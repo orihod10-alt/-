@@ -33,7 +33,7 @@ export default function WhyUs() {
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef   = useRef<HTMLVideoElement>(null);
   const headerRef  = useRef<HTMLDivElement>(null);
-  const inView     = useInView(sectionRef, { once: true, margin: "-100px" });
+  const inView     = useInView(sectionRef, { once: false, margin: "-100px" });
 
   /* Parallax on the background video */
   useEffect(() => {

@@ -21,7 +21,7 @@ function WhatsAppIcon({ size = 18 }: { size?: number }) {
 
 export default function CTAFinal() {
   const sectionRef = useRef<HTMLElement>(null);
-  const inView     = useInView(sectionRef, { once: true, margin: "-80px" });
+  const inView     = useInView(sectionRef, { once: false, margin: "-80px" });
 
   return (
     <section

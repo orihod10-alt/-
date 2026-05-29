@@ -105,7 +105,7 @@ export default function Services() {
           <motion.p
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
+            viewport={{ once: false, margin: "-80px" }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             style={{
               fontFamily:    "var(--font-heebo, Arial, sans-serif)",
@@ -121,7 +121,7 @@ export default function Services() {
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
+            viewport={{ once: false, margin: "-80px" }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
             style={{
               fontFamily:    "var(--font-frank-ruhl, Georgia, serif)",
@@ -142,7 +142,7 @@ export default function Services() {
         <motion.a
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           transition={{ duration: 0.6, delay: 0.3 }}
           href="#cta"
           style={{
@@ -192,7 +192,7 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
       variants={CARD_VARIANTS}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: "-60px" }}
+      viewport={{ once: false, margin: "-60px" }}
       onMouseEnter={onEnter}
       onMouseLeave={onLeave}
       style={{
@@ -220,8 +220,7 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
         muted
         loop
         playsInline
-        preload="auto"
-
+        preload="metadata"
         onLoadedData={() => {
           if (videoRef.current) videoRef.current.style.opacity = "1";
         }}
@@ -231,6 +230,7 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
           width:      "100%",
           height:     "100%",
           objectFit:  "cover",
+          filter:     "brightness(0.45)",
           zIndex:     0,
           opacity:    0,                                    /* fades in on load */
           transition: "opacity 0.5s ease",
@@ -245,7 +245,7 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
         style={{
           position:   "absolute",
           inset:      0,
-          background: "linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.75) 55%, rgba(0,0,0,0.95) 100%)",
+          background: "linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.85) 50%, rgba(0,0,0,0.97) 100%)",
           zIndex:     2,
         }}
       />

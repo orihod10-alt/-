@@ -39,7 +39,7 @@ body {
   background: var(--charcoal);
   color: var(--cream);
   font-family: var(--font-heebo, "Arial Hebrew", sans-serif);
-  overflow-x: hidden;
+  overflow-x: clip;
   max-width: 100vw;
   cursor: none;
   -webkit-font-smoothing: antialiased;
@@ -67,28 +67,9 @@ h1, h2, h3, h4, h5, h6 {
 /* ─────────────────────────────────────
    KEYFRAMES
 ───────────────────────────────────────*/
-@keyframes fade-rise {
-  from { opacity: 0; transform: translateY(28px); filter: blur(4px); }
-  to   { opacity: 1; transform: translateY(0);    filter: blur(0);   }
-}
-
 @keyframes pulse-glow {
   0%, 100% { opacity: 0.3; }
   50%       { opacity: 1;   }
-}
-
-@keyframes marquee-left {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-33.333%); }
-}
-
-@keyframes spin-slow {
-  to { transform: rotate(360deg); }
-}
-
-@keyframes loader-fill {
-  from { width: 0%; }
-  to   { width: 100%; }
 }
 
 @keyframes process-line-sweep {
