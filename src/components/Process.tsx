@@ -15,7 +15,7 @@ const STEPS = [
     title:    "שיחה ראשונה",
     subtitle: "מספרים לנו על הבעיה. מתאמים הגעה.",
     body:     "שיחה של 5 דקות מספיקה. אין צורך לחכות שעות. אנחנו מגיעים בחלון הזמן שמתאים לך — ולא להפך.",
-    videoSrc: "/api/video/3245835/3245835-hd_1920_1080_25fps.mp4",
+    videoSrc: "/videos/process-1.mp4",
   },
   {
     num:      "02",
@@ -23,7 +23,7 @@ const STEPS = [
     title:    "מאתרים את הבעיה",
     subtitle: "ציוד מדידה מקצועי. אבחון מדויק.",
     body:     "טכנולוגיית אבחון שמאפשרת לאתר כל בעיה — דליפות, סתימות, לחץ נמוך — בלי לשבור קיר אחד.",
-    videoSrc: "/api/video/4109855/4109855-hd_1920_1080_25fps.mp4",
+    videoSrc: "/videos/process-2.mp4",
   },
   {
     num:      "03",
@@ -31,7 +31,7 @@ const STEPS = [
     title:    "תיקון מקצועי",
     subtitle: "עבודה נקייה. חומרים מהמדרגה הראשונה.",
     body:     "כל תיקון מבוצע לפי תקן ישראלי, עם חומרים מקצועיים בלבד. עובדים בסדר, עוזבים נקיים.",
-    videoSrc: "/api/video/3960960/3960960-hd_1920_1080_25fps.mp4",
+    videoSrc: "/videos/process-3.mp4",
   },
   {
     num:      "04",
@@ -39,7 +39,7 @@ const STEPS = [
     title:    "בדיקה ואחריות",
     subtitle: "בדיקת לחץ. 5 שנות אחריות בכתב.",
     body:     "לא נעזוב לפני שהכל עובד בדיוק כמו שצריך. מסמכי אחריות, ביטוח מקצועי, ושקט נפשי מלא.",
-    videoSrc: "/api/video/3760529/3760529-hd_1920_1080_25fps.mp4",
+    videoSrc: "/videos/process-4.mp4",
   },
 ];
 
@@ -79,7 +79,7 @@ export default function Process() {
       ════════════════════════════════════════════ */}
       <div
         ref={desktopRef}
-        className="block"
+        className="hidden md:block"
         style={{ height: "400vh", position: "relative" }}
       >
         <div

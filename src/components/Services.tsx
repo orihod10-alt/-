@@ -20,7 +20,7 @@ const SERVICES: Service[] = [
     title:       "תיקון דליפות",
     description: "איתור דליפות בטכנולוגיה מתקדמת. בלי לשבור קיר אחד.",
     price:       "החל מ-₪450",
-    videoSrc:    "/api/video/4109855/4109855-hd_1920_1080_25fps.mp4",
+    videoSrc:    "/videos/leaks.mp4",
   },
   {
     id:          "emergency",
@@ -28,7 +28,7 @@ const SERVICES: Service[] = [
     title:       "שירות חירום 24/7",
     description: "אנחנו על הדרך תוך 20 דקות. בכל שעה. בכל מזג אוויר.",
     price:       "החל מ-₪350",
-    videoSrc:    "/api/video/4194863/4194863-hd_1920_1080_25fps.mp4",
+    videoSrc:    "/videos/emergency.mp4",
   },
   {
     id:          "luxury",
@@ -36,7 +36,7 @@ const SERVICES: Service[] = [
     title:       "התקנות יוקרה",
     description: "ברזים, כיורים, אסלות. עם הקפדה על כל פרט.",
     price:       "החל מ-₪280",
-    videoSrc:    "/api/video/3960960/3960960-hd_1920_1080_25fps.mp4",
+    videoSrc:    "/videos/luxury.mp4",
   },
   {
     id:          "drain",
@@ -44,7 +44,7 @@ const SERVICES: Service[] = [
     title:       "פתיחת סתימות",
     description: "ביוב, אסלות וצנרת. פתרון מהיר, יעיל, נקי.",
     price:       "החל מ-₪320",
-    videoSrc:    "/api/video/4108714/4108714-hd_1920_1080_25fps.mp4",
+    videoSrc:    "/videos/drain.mp4",
   },
   {
     id:          "smart",
@@ -52,7 +52,7 @@ const SERVICES: Service[] = [
     title:       "מערכות מים חכמות",
     description: "דודי שמש, חימום חכם, פתרונות חסכוניים.",
     price:       "החל מ-₪890",
-    videoSrc:    "/api/video/5532765/5532765-hd_1920_1080_25fps.mp4",
+    videoSrc:    "/videos/smart-water.mp4",
   },
   {
     id:          "bathroom",
@@ -60,7 +60,7 @@ const SERVICES: Service[] = [
     title:       "שיפוצי אמבטיות",
     description: "מקלחות יוקרה, ג'קוזי, ועיצוב מותאם אישית.",
     price:       "החל מ-₪3,500",
-    videoSrc:    "/api/video/7616603/7616603-hd_1920_1080_25fps.mp4",
+    videoSrc:    "/videos/bathroom.mp4",
   },
 ];
 
@@ -179,12 +179,6 @@ export default function Services() {
 function ServiceCard({ service, index }: { service: Service; index: number }) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  // Pexels poster — same numeric ID, different path
-  const pexelsId = service.videoSrc.match(/video-files\/(\d+)/)?.[1];
-  const poster   = pexelsId
-    ? `https://images.pexels.com/videos/${pexelsId}/pictures/preview-0.jpeg`
-    : undefined;
-
   const onEnter = () => {
     if (videoRef.current) videoRef.current.style.opacity = "0.85";
   };
@@ -227,7 +221,7 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
         loop
         playsInline
         preload="auto"
-        poster={poster}
+
         onLoadedData={() => {
           if (videoRef.current) videoRef.current.style.opacity = "1";
         }}

@@ -99,8 +99,7 @@ export default function Hero() {
     >
       {/* ── Layer 1: Background Video ── */}
       <video
-        src="/api/video/5532765/5532765-hd_1920_1080_25fps.mp4"
-        crossOrigin="anonymous"
+        src="/videos/process-4.mp4"
         autoPlay
         muted
         loop
