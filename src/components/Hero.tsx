@@ -3,6 +3,7 @@
 import { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { ArrowDown } from "lucide-react";
+import { useVideoAutoplay } from "@/utils/useVideoAutoplay";
 
 /**
  * Custom character splitter — replaces SplitText (Club GreenSock paid plugin).
@@ -85,20 +86,8 @@ export default function Hero() {
     return () => ctx.revert();
   }, []);
 
-  /* Force-play on mobile — browser autoplay policy requires muted + programmatic play */
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-    video.muted = true;
-    video.setAttribute('webkit-playsinline', 'true');
-    video.setAttribute('x5-playsinline', 'true');
-    const playPromise = video.play();
-    if (playPromise !== undefined) {
-      playPromise.catch(() => {
-        document.addEventListener('click', () => video.play(), { once: true });
-      });
-    }
-  }, []);
+  /* Force muted autoplay — works on iOS Safari and Android Chrome */
+  useVideoAutoplay(videoRef);
 
   return (
     <section
@@ -122,6 +111,7 @@ export default function Hero() {
         muted
         loop
         playsInline
+        controls={false}
         preload="auto"
         style={{
           position: "absolute",

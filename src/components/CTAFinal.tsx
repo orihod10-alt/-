@@ -1,7 +1,8 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import { useVideoAutoplay } from "@/utils/useVideoAutoplay";
 import { Phone } from "lucide-react";
 
 /* WhatsApp SVG (inline — no external dependency) */
@@ -24,14 +25,8 @@ export default function CTAFinal() {
   const videoRef   = useRef<HTMLVideoElement>(null);
   const inView     = useInView(sectionRef, { once: false, margin: "-80px" });
 
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-    video.muted = true;
-    video.setAttribute('webkit-playsinline', 'true');
-    video.setAttribute('x5-playsinline', 'true');
-    video.play().catch(() => {});
-  }, []);
+  /* Force muted autoplay — works on iOS Safari and Android Chrome */
+  useVideoAutoplay(videoRef);
 
   return (
     <section
@@ -54,6 +49,7 @@ export default function CTAFinal() {
         muted
         loop
         playsInline
+        controls={false}
         preload="metadata"
         aria-hidden="true"
         style={{

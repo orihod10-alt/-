@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { useVideoAutoplay } from "@/utils/useVideoAutoplay";
 
 /**
  * Manifesto — cinematic centered scroll reveal.
@@ -94,6 +95,9 @@ function AnimatedWord({
 
 export default function Manifesto() {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const videoRef   = useRef<HTMLVideoElement>(null);
+
+  useVideoAutoplay(videoRef);
 
   const { scrollYProgress } = useScroll({
     target:  sectionRef,
@@ -116,11 +120,13 @@ export default function Manifesto() {
     >
       {/* Atmospheric background video */}
       <video
+        ref={videoRef}
         src="/videos/smart-water.mp4"
         autoPlay
         muted
         loop
         playsInline
+        controls={false}
         preload="metadata"
         aria-hidden="true"
         style={{

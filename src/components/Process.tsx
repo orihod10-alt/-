@@ -64,16 +64,22 @@ export default function Process() {
   useEffect(() => {
     videoRefs.current.forEach((vid, i) => {
       if (!vid) return;
+      /* Ensure muted is set programmatically — required before play() on iOS */
+      vid.muted = true;
+      vid.defaultMuted = true;
       if (i === activeStep) vid.play().catch(() => {});
       else vid.pause();
     });
   }, [activeStep]);
 
-  /* ── Mobile: set webkit attrs + IntersectionObserver for carousel videos ── */
+  /* ── Mobile: belt-and-suspenders muted attrs + IntersectionObserver play/pause ── */
   useEffect(() => {
     const videos = document.querySelectorAll<HTMLVideoElement>('.process-slide video');
     videos.forEach((video) => {
-      video.muted = true;
+      video.muted        = true;
+      video.defaultMuted = true;
+      video.setAttribute('muted', '');
+      video.setAttribute('playsinline', '');
       video.setAttribute('webkit-playsinline', 'true');
       video.setAttribute('x5-playsinline', 'true');
     });
@@ -144,9 +150,11 @@ export default function Process() {
                 <video
                   ref={(el) => { videoRefs.current[i] = el; }}
                   src={s.videoSrc}
+                  autoPlay
                   muted
                   loop
                   playsInline
+                  controls={false}
                   preload="metadata"
                   style={{
                     width:     "100%",
@@ -568,11 +576,12 @@ export default function Process() {
                 }}
               >
                 <video
-                  autoPlay={i === 0}
+                  autoPlay
                   muted
                   loop
                   playsInline
-                  preload={i === 0 ? "auto" : "metadata"}
+                  controls={false}
+                  preload="metadata"
                   src={s.videoSrc}
                   style={{
                     position:  "absolute",

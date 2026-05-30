@@ -1,6 +1,7 @@
 ﻿"use client";
 
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
+import { useVideoAutoplay } from "@/utils/useVideoAutoplay";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 
@@ -179,18 +180,8 @@ export default function Services() {
 function ServiceCard({ service, index }: { service: Service; index: number }) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  /* Force-play on mobile — ensures autoplay works on iOS/Android */
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-    video.muted = true;
-    video.setAttribute('webkit-playsinline', 'true');
-    video.setAttribute('x5-playsinline', 'true');
-    const playPromise = video.play();
-    if (playPromise !== undefined) {
-      playPromise.catch(() => {});
-    }
-  }, []);
+  /* Force muted autoplay — works on iOS Safari and Android Chrome */
+  useVideoAutoplay(videoRef);
 
   const onEnter = () => {
     if (videoRef.current) videoRef.current.style.opacity = "0.85";
@@ -233,6 +224,7 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
         muted
         loop
         playsInline
+        controls={false}
         preload="metadata"
         onLoadedData={() => {
           if (videoRef.current) videoRef.current.style.opacity = "1";

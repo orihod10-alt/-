@@ -5,6 +5,7 @@ import { motion, useMotionValue, useTransform, useSpring, useInView } from "fram
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Shield, Clock, Award } from "lucide-react";
+import { useVideoAutoplay } from "@/utils/useVideoAutoplay";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -35,15 +36,8 @@ export default function WhyUs() {
   const headerRef  = useRef<HTMLDivElement>(null);
   const inView     = useInView(sectionRef, { once: false, margin: "-100px" });
 
-  /* Force-play on mobile */
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-    video.muted = true;
-    video.setAttribute('webkit-playsinline', 'true');
-    video.setAttribute('x5-playsinline', 'true');
-    video.play().catch(() => {});
-  }, []);
+  /* Force muted autoplay — works on iOS Safari and Android Chrome */
+  useVideoAutoplay(videoRef);
 
   /* Parallax on the background video */
   useEffect(() => {
@@ -104,6 +98,7 @@ export default function WhyUs() {
         muted
         loop
         playsInline
+        controls={false}
         preload="metadata"
         aria-hidden="true"
         style={{

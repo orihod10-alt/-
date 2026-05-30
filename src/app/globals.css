@@ -338,6 +338,20 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ─────────────────────────────────────
+   SUPPRESS NATIVE VIDEO CONTROLS
+   Prevents iOS Safari play-button overlay
+   on muted autoplay videos.
+───────────────────────────────────────*/
+video::-webkit-media-controls {
+  display: none !important;
+}
+
+video::-webkit-media-controls-start-playback-button {
+  display: none !important;
+  -webkit-appearance: none;
+}
+
+/* ─────────────────────────────────────
    HIDE SCROLLBAR
 ───────────────────────────────────────*/
 .no-scrollbar::-webkit-scrollbar { display: none; }
