@@ -1,12 +1,23 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 
 export default function CustomCursor() {
   const dotRef  = useRef<HTMLDivElement>(null);
   const ringRef = useRef<HTMLDivElement>(null);
+  const [isTouch, setIsTouch] = useState(false);
 
+  /* Detect touch / coarse-pointer devices on mount */
+  useEffect(() => {
+    const checkTouch =
+      window.matchMedia("(pointer: coarse)").matches ||
+      "ontouchstart" in window ||
+      navigator.maxTouchPoints > 0;
+    setIsTouch(checkTouch);
+  }, []);
+
+  /* GSAP cursor tracking — only activates on pointer:fine */
   useEffect(() => {
     // Only on pointer:fine devices (not touch)
     const mq = window.matchMedia("(pointer: fine)");
@@ -82,13 +93,16 @@ export default function CustomCursor() {
     };
   }, []);
 
+  /* Never render cursor on touch / coarse-pointer devices */
+  if (isTouch) return null;
+
   return (
     <>
       {/* Amber dot — tracks exactly */}
       <div
         ref={dotRef}
         aria-hidden="true"
-        className="fixed top-0 left-0 pointer-events-none"
+        className="custom-cursor fixed top-0 left-0 pointer-events-none"
         style={{
           width: 8,
           height: 8,
@@ -102,7 +116,7 @@ export default function CustomCursor() {
       <div
         ref={ringRef}
         aria-hidden="true"
-        className="fixed top-0 left-0 pointer-events-none"
+        className="custom-cursor fixed top-0 left-0 pointer-events-none"
         style={{
           width: 32,
           height: 32,

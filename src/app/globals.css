@@ -41,14 +41,24 @@ body {
   font-family: var(--font-heebo, "Arial Hebrew", sans-serif);
   overflow-x: clip;
   max-width: 100vw;
-  cursor: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.6;
 }
 
+/* Custom cursor only on real pointer devices */
+@media (pointer: fine) {
+  body { cursor: none; }
+}
+
 @media (pointer: coarse) {
   body { cursor: auto; }
+
+  /* Hide cursor elements immediately — before JS can run */
+  .custom-cursor,
+  [class*="cursor"] {
+    display: none !important;
+  }
 }
 
 /* ─────────────────────────────────────
@@ -219,6 +229,59 @@ h1, h2, h3, h4, h5, h6 {
   scroll-snap-align: start;
   flex-shrink: 0;
   width: 100vw;
+}
+
+/* ─────────────────────────────────────
+   STATS GRID — 4-col desktop / 2x2 mobile
+───────────────────────────────────────*/
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  max-width: 1200px;
+  margin-inline: auto;
+}
+
+.stat-card {
+  padding: clamp(32px, 4vw, 48px) clamp(24px, 3vw, 40px);
+}
+
+/* Desktop: right-border separators between columns (RTL: border-right = left side of separator) */
+.stats-grid .stat-card:not(:first-child) {
+  border-right: 1px solid var(--border-line);
+}
+
+.stat-num {
+  font-size: clamp(3rem, 5.5vw, 5.5rem);
+}
+
+@media (max-width: 767px) {
+  /* 2×2 grid on mobile */
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .stat-card {
+    padding: 20px 16px;
+    border-right: none;
+    border-top: none;
+  }
+
+  /* Re-draw borders for 2×2 layout (RTL: col separator = border-right on right card) */
+  .stats-grid .stat-card:nth-child(2) {
+    border-right: 1px solid var(--border-line);
+  }
+  .stats-grid .stat-card:nth-child(3) {
+    border-top: 1px solid var(--border-line);
+  }
+  .stats-grid .stat-card:nth-child(4) {
+    border-right: 1px solid var(--border-line);
+    border-top:   1px solid var(--border-line);
+  }
+
+  /* Smaller numbers to fit 2-column layout */
+  .stat-num {
+    font-size: clamp(2.5rem, 12vw, 4rem);
+  }
 }
 
 /* ─────────────────────────────────────

@@ -94,6 +94,7 @@ function StatCard({ stat, index }: { stat: Stat; index: number }) {
   return (
     <motion.div
       ref={ref}
+      className="stat-card"
       initial={{ opacity: 0, y: 36 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{
@@ -102,19 +103,17 @@ function StatCard({ stat, index }: { stat: Stat; index: number }) {
         delay:    index * 0.1,
       }}
       style={{
-        display:        "flex",
-        flexDirection:  "column",
-        alignItems:     "flex-start",
-        padding:        "clamp(32px, 4vw, 48px) clamp(24px, 3vw, 40px)",
-        borderRight:    index > 0 ? "1px solid var(--border-line)" : "none",
-        position:       "relative",
+        display:       "flex",
+        flexDirection: "column",
+        alignItems:    "flex-start",
+        position:      "relative",
       }}
     >
       {/* Number */}
       <span
+        className="stat-num"
         style={{
           fontFamily:    "var(--font-frank-ruhl, Georgia, serif)",
-          fontSize:      "clamp(2.5rem, 8vw, 9rem)",
           fontWeight:    400,
           color:         "var(--cream)",
           lineHeight:    1,
@@ -194,15 +193,8 @@ export default function StatsImpact() {
         }}
       />
 
-      {/* Grid — 2 cols mobile, 4 cols desktop */}
-      <div
-        style={{
-          display:             "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 200px), 1fr))",
-          maxWidth:            1200,
-          marginInline:        "auto",
-        }}
-      >
+      {/* Grid — 4-col desktop / 2×2 mobile (layout via .stats-grid in globals.css) */}
+      <div className="stats-grid">
         {STATS.map((stat, i) => (
           <StatCard key={stat.label} stat={stat} index={i} />
         ))}
