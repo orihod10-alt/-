@@ -232,6 +232,44 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ─────────────────────────────────────
+   HERO — headline font (desktop default)
+   mobile overrides below in media query
+───────────────────────────────────────*/
+.hero-headline-line {
+  font-size: clamp(2.8rem, 10vw, 10rem);
+}
+
+@media (max-width: 767px) {
+  /* Center content vertically on mobile (desktop keeps flex-end) */
+  .hero-section {
+    align-items: center !important;
+  }
+
+  /* Clear navbar and keep comfortable bottom breathing room */
+  .hero-content-wrap {
+    padding-top: 100px !important;
+    padding-bottom: 40px !important;
+  }
+
+  /* Smaller headline + more line-height so descenders don't clip */
+  .hero-headline-line {
+    font-size: clamp(2.5rem, 9vw, 5rem) !important;
+    line-height: 1.2 !important;
+  }
+
+  /* Stronger dark overlay on mobile — video contrast behind text */
+  .hero-overlay {
+    background: linear-gradient(
+      to top,
+      rgba(15, 12, 8, 0.97) 0%,
+      rgba(15, 12, 8, 0.70) 40%,
+      rgba(15, 12, 8, 0.40) 70%,
+      rgba(15, 12, 8, 0.20) 100%
+    ) !important;
+  }
+}
+
+/* ─────────────────────────────────────
    STATS GRID — 4-col desktop / 2x2 mobile
 ───────────────────────────────────────*/
 .stats-grid {

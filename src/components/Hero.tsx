@@ -104,6 +104,7 @@ export default function Hero() {
     <section
       ref={sectionRef}
       id="hero"
+      className="hero-section"
       style={{
         position: "relative",
         minHeight: "100dvh",
@@ -138,6 +139,7 @@ export default function Hero() {
       {/* ── Layer 2: Gradient overlay ── */}
       <div
         aria-hidden="true"
+        className="hero-overlay"
         style={{
           position: "absolute",
           inset: 0,
@@ -149,6 +151,7 @@ export default function Hero() {
 
       {/* ── Layer 3: Headline content (bottom-right / RTL) ── */}
       <div
+        className="hero-content-wrap"
         style={{
           position: "relative",
           zIndex: 10,
@@ -197,32 +200,35 @@ export default function Hero() {
         <div
           ref={headlineRef}
           style={{
-            maxWidth: "min(1100px, 90vw)",
+            maxWidth:     "min(1100px, 90vw)",
+            overflow:     "visible",
+            paddingBottom: "0.3em",
+            paddingRight:  "0.1em",
           }}
         >
           <CharSplit
             text="כי הבית שלך"
+            className="hero-headline-line"
             style={{
-              fontFamily: "var(--font-frank-ruhl, Georgia, serif)",
-              fontWeight: 400,
-              fontSize: "clamp(2.8rem, 10vw, 10rem)",
-              color: "var(--cream)",
-              lineHeight: 0.92,
+              fontFamily:    "var(--font-frank-ruhl, Georgia, serif)",
+              fontWeight:    400,
+              color:         "var(--cream)",
+              lineHeight:    0.92,
               letterSpacing: "-0.02em",
-              marginBottom: "0.05em",
+              marginBottom:  "0.05em",
             }}
           />
           <span
+            className="hero-headline-line"
             style={{
-              fontFamily: "var(--font-frank-ruhl, Georgia, serif)",
+              fontFamily:    "var(--font-frank-ruhl, Georgia, serif)",
               fontStyle:     "italic",
               fontWeight:    400,
-              fontSize:      "clamp(2.8rem, 10vw, 10rem)",
               color:         "var(--accent)",
-              lineHeight:    1.15,       /* was 0.92 — Hebrew descenders need room */
+              lineHeight:    1.15,
               letterSpacing: "-0.02em",
               display:       "block",
-              paddingBottom: "0.25em",  /* descender clearance */
+              paddingBottom: "0.25em",
               overflow:      "visible",
             }}
           >
@@ -315,81 +321,6 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* ── Bottom-left signature ── */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: "absolute",
-          bottom: 80,
-          left: 60,
-          zIndex: 10,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: 8,
-        }}
-        className="hidden md:flex"
-      >
-        <span
-          style={{
-            transform: "rotate(-90deg)",
-            fontFamily: "var(--font-heebo, Arial, sans-serif)",
-            fontSize: 11,
-            letterSpacing: "0.35em",
-            textTransform: "uppercase",
-            color: "var(--cream-muted)",
-            whiteSpace: "nowrap",
-            opacity: 0.6,
-          }}
-        >
-          EST. 2005
-        </span>
-        <div
-          style={{
-            width: 6,
-            height: 6,
-            borderRadius: "50%",
-            background: "var(--accent)",
-            animation: "pulse-glow 2s ease-in-out infinite",
-          }}
-        />
-      </div>
-
-      {/* ── Scroll indicator ── */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: "absolute",
-          bottom: 28,
-          left: "50%",
-          transform: "translateX(-50%)",
-          zIndex: 10,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: 8,
-        }}
-      >
-        <div
-          style={{
-            width: 1,
-            height: 48,
-            background: "linear-gradient(to bottom, var(--accent), transparent)",
-          }}
-        />
-        <span
-          style={{
-            fontFamily: "var(--font-heebo, Arial, sans-serif)",
-            fontSize: 10,
-            letterSpacing: "0.3em",
-            textTransform: "uppercase",
-            color: "var(--cream-muted)",
-            opacity: 0.5,
-          }}
-        >
-          גלול
-        </span>
-      </div>
     </section>
   );
 }
